@@ -1,1 +1,6 @@
 /node_modules
+/src/.wwebjs_auth
+/src/.wwebjs_auth/session
+/src/.wwebjs_cache
+/.wwebjs_cache
+    

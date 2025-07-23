@@ -1,0 +1,25 @@
+{
+  "name": "zapbot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo && exit 1",
+    "start": "node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vieirismo/ZapBot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Vieirismo/ZapBot/issues"
+  },
+  "homepage": "https://github.com/Vieirismo/ZapBot#readme",
+  "description": "",
+  "dependencies": {
+    "puppeteer": "^24.14.0",
+    "qrcode-terminal": "^0.12.0",
+    "whatsapp-web.js": "^1.31.0"
+  }
+}

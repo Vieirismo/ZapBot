@@ -1,4 +1,4 @@
-const { Client, LocalAuth  } = require('whatsapp-web.js');
+const { Client, LocalAuth, MessageMedia } = require('whatsapp-web.js');
 
 const qrcode = require('qrcode-terminal');
 
@@ -52,7 +52,7 @@ const meuNumero = '5519998566459@c.us'
 
 client.on ('message_create', async message => { 
     try {
-        if (message.body === '!chat'){
+        if (message.body.toLowerCase() === '!chat'){
             const chat = await message.getChat();
             if(chat.isGroup){
                 message.reply(`ID do grupo atual: ${chat.id._serialized}`);
@@ -60,7 +60,7 @@ client.on ('message_create', async message => {
                 message.reply(`ID do chat atual: ${chat.id._serialized}`);
             }
         }
-        else if (message.body === '!chats' && message.from === meuNumero){
+        else if (message.body.toLowerCase() === '!chats' && message.from === meuNumero){
             const chats = await client.getChats();
             const groupChats = chats.filter(chat => chat.isGroup);
 
@@ -79,9 +79,26 @@ client.on ('message_create', async message => {
 
             message.reply(responseMessage);
         }
+        
      
-        else if (message.body === "!teste") {
+        else if (message.body.toLowerCase() === "!teste") {
             message.reply("Funcionando!");
+        }
+        else if(message.body.toLowerCase() === "!denilson"){
+            const imagePath = path.resolve(__dirname, '..', 'img', 'denilson.jpg'); 
+            try {
+                const media = await MessageMedia.fromFilePath(imagePath);
+                
+                  await client.sendMessage(message.from, media, { 
+                    caption: 'RESENHA!', 
+                    quotedMessageId: message.id._serialized 
+                });
+                console.log('Imagem enviada como reply com sucesso!');
+            } catch (imageError) {
+                console.error('Caminho: ', imagePath);
+                console.error('Erro ao enviar a imagem: ', imageError);
+                message.reply('Não consegui enviar a imagem. Verifique se o caminho está correto e o arquivo existe.');
+            }
         }
         else if (message.body.startsWith('!')) {
            message.reply("Comando Desconhecido, tente: !chat ou !teste");
@@ -92,3 +109,47 @@ client.on ('message_create', async message => {
         message.reply(`Ocorreu um erro ao processar seu comando. Erro: ${e.message || e}`);
     }
 });
+
+const gruposEnvio = [
+    "120363375766274850@g.us",
+    "553491273708-1570739834@g.us",
+    "120363406301035687@g.us",
+    "120363388361786869@g.us",
+    "120363402267785800@g.us"
+];
+
+const intervaloMsg = 120000;
+
+let timerEnvioPeriodico; 
+
+/*client.on('ready', async () => {
+    console.log('Client is ready!');
+    console.log('Bot pronto para enviar mensagens periódicas.');
+
+
+    timerEnvioPeriodico = setInterval(async () => {
+        const imagePath = path.resolve(__dirname, '..', 'img', 'contaBlitz.jpg'); 
+        const contaMsg = `> MAIS DE 400 JOGADORES\n\n` +
+                         `VÁRIOS POTW, TIME DO BRASILEIRÃO, ÍMPETOS, ETC.\n\n` +
+                         `MESSI BLITZ E 2009.\n\n` +
+                         `63 GIROS NA BOX DO PELÉ\n\n` +
+                         `ATUALMENTE NA PRIMEIRA DIVISÃO\n\n` +
+                         `VENDO (R$200) OU TROCO COM VOLTA, VÍDEO NO PV.`;
+
+        console.log(`Iniciando rodada de envio periódico para ${gruposEnvio.length} grupos...`);
+
+        for (const groupId of gruposEnvio) {
+            try {
+                const media = await MessageMedia.fromFilePath(imagePath);
+                
+                await client.sendMessage(groupId, media, { 
+                    caption: contaMsg
+                });
+                console.log(`Mensagem periódica (imagem + texto) enviada para: ${groupId}`);
+            } catch (error) {
+                console.error(`Erro ao enviar mensagem periódica para ${groupId}:`, error);
+            }
+        }
+        console.log('Rodada de envio periódico concluída.');
+    }, intervaloMsg);
+});*/

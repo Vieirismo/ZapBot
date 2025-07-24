@@ -3,4 +3,5 @@
 /src/.wwebjs_auth/session
 /src/.wwebjs_cache
 /.wwebjs_cache
+/.wwebjs_auth
     

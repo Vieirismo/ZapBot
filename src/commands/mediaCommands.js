@@ -1,4 +1,3 @@
-
 const { MessageMedia } = require('whatsapp-web.js');
 const { IMAGE_PATHS } = require('../config'); 
 

@@ -1,82 +1,27 @@
-const { Client, LocalAuth } = require('whatsapp-web.js');
-const qrcode = require('qrcode-terminal');
 const path = require('path');
 
-const { SESSION_PATH, MY_NUMBER } = require('./config');
+const SESSION_PATH = path.resolve(__dirname, '..', '.wwebjs_auth'); 
 
-const chatCommands = require('./commands/chatCommands');
-const mediaCommands = require('./commands/mediaCommands');
-const miscCommands = require('./commands/miscCommands');
+const MY_NUMBER = '5519998566459@c.us';
+const GROUPS_TO_SEND = [
+    "120363375766274850@g.us",
+    "553491273708-1570739834@g.us",
+    "120363406301035687@g.us",
+    "120363388361786869@g.us",
+    "120363402267785800@g.us"
+];
 
-const { startPeriodicJobs } = require('./cronJobs');
+const PERIODIC_MESSAGE_INTERVAL_MS = 600000; // 10 minutos
 
-console.log('Caminho da sessão esperado:', SESSION_PATH);
+const IMAGE_PATHS = {
+    DENILSON: path.resolve(__dirname, '..', 'img', 'denilson.jpg'),
+    CONTABLITZ: path.resolve(__dirname, '..', 'img', 'contaBlitz.jpg'),
+};
 
-const client = new Client({
-    authStrategy: new LocalAuth({
-        dataPath: SESSION_PATH 
-    }),
-    puppeteer:{
-        headless: false, 
-        args:[
-            '--no-sandbox',
-            '--disable-setuid-sandbox',
-            '--disable-gpu', 
-            '--disable-dev-shm-usage',
-            '--no-zygote'
-        ],
-    },
-});
-
-client.on('authenticated', () => {
-    console.log('Autenticado');
-});
-
-client.on('auth_failure', (msg) => {
-    console.error('Autenticação falhou: ', msg);
-});
-
-client.on('disconnected', (reason) => {
-    console.log('Desconectado');
-});
-
-client.on('qr', qr => {
-    qrcode.generate(qr, {small: true});
-});
-
-client.initialize();
-
-client.on('ready', async () => {
-    console.log('Client is ready!');
-    startPeriodicJobs(client);
-});
-
-client.on('message_create', async message => { 
-    const senderId = message.author || message.from; 
-    const command = message.body.toLowerCase().split(' ')[0]; 
-
-    try {
-        switch (command) {
-            case '!chat':
-                await chatCommands.handleChatCommand(message);
-                break;
-            case '!chats':
-                await chatCommands.handleChatsCommand(message, senderId);
-                break;
-            case '!teste':
-                await miscCommands.handleTesteCommand(message);
-                break;
-            case '!denilson':
-                await mediaCommands.handleDenilsonCommand(message);
-                break;
-            default:
-                if (message.body.startsWith('!')) { 
-                    message.reply("Comando Desconhecido. Tente: !chat, !teste ou !denilson" );
-                }
-                break;
-        }
-    } catch (e) {
-        console.error(`Erro ao processar comando e enviar resposta:`, e);
-        message.reply(`Ocorreu um erro ao processar seu comando. Erro: ${e.message || e}`);
-    }
-});
+module.exports = {
+    SESSION_PATH,
+    MY_NUMBER,
+    GROUPS_TO_SEND,
+    PERIODIC_MESSAGE_INTERVAL_MS,
+    IMAGE_PATHS,
+};

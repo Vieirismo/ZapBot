@@ -48,19 +48,19 @@ qrcode.generate(qr, {small: true});
 
 client.initialize();
 
+const meuNumero = '5519998566459@c.us'
+
 client.on ('message_create', async message => { 
     try {
         if (message.body === '!chat'){
             const chat = await message.getChat();
             if(chat.isGroup){
-                // Usando message.reply()
                 message.reply(`ID do grupo atual: ${chat.id._serialized}`);
             } else {
-                // Usando message.reply()
                 message.reply(`ID do chat atual: ${chat.id._serialized}`);
             }
         }
-        else if (message.body === '!chats'){
+        else if (message.body === '!chats' && message.from === meuNumero){
             const chats = await client.getChats();
             const groupChats = chats.filter(chat => chat.isGroup);
 
@@ -74,7 +74,6 @@ client.on ('message_create', async message => {
                 responseMessage += `--- Grupo ${index + 1} ---\n`;
                 responseMessage += `Nome: ${group.name}\n`;
                 responseMessage += `ID: ${group.id._serialized}\n`;
-                responseMessage += `Participantes: ${group.participants.length}\n`;
                 responseMessage += `-------------------\n\n`;
             });
 
@@ -85,8 +84,9 @@ client.on ('message_create', async message => {
             message.reply("Funcionando!");
         }
         else if (message.body.startsWith('!')) {
-            message.reply("Comando desconhecido. Tente !chat, !chats, !teste ou !eco.");
+           message.reply("Comando Desconhecido, tente: !chat ou !teste");
         }
+        
     } catch (e) {
         console.error(`Erro ao processar comando e enviar resposta:`, e);
         message.reply(`Ocorreu um erro ao processar seu comando. Erro: ${e.message || e}`);

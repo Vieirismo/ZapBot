@@ -16,6 +16,7 @@ const PERIODIC_MESSAGE_INTERVAL_MS = 600000; // 10 minutos
 const IMAGE_PATHS = {
     DENILSON: path.resolve(__dirname, '..', 'img', 'denilson.jpg'),
     CONTABLITZ: path.resolve(__dirname, '..', 'img', 'contaBlitz.jpg'),
+    CONTAVILLA: path.resolve(__dirname,'..', 'img', 'contaVilla.jpg')
 };
 
 module.exports = {

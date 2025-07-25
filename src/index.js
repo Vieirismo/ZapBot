@@ -71,12 +71,9 @@ client.on('message_create', async message => {
             case '!denilson':
                 await mediaCommands.handleDenilsonCommand(message);
                 break;
-            case '!caixa':
-                await miscCommands.handleCaixaCommand(message);
-                break;
             default:
                 if (message.body.startsWith('!')) { 
-                    message.reply("Comando Desconhecido. Tente: !chat, !chats, !teste, !denilson ou !caixa");
+                    message.reply("Comando Desconhecido. Tente: !chat, !teste ou !denilson");
                 }
                 break;
         }

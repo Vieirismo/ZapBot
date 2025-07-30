@@ -115,6 +115,7 @@ The first time you run the bot (or if the session expires), a **QR Code** will b
 
 After successful authentication, the bot will be ready to operate, and the session will be automatically saved in the ```.wwebjs_auth/``` folder. In future runs, you won't need to scan the QR Code again, unless the session is disconnected by WhatsApp.
 
+
 * **🛑 Stopping the Bot:** 
 To stop the bot, press ```Ctrl + C``` in the terminal where it is running.
 
@@ -126,13 +127,13 @@ To stop the bot, press ```Ctrl + C``` in the terminal where it is running.
 
     * Verify that all dependencies are correctly installed (npm install).
 
-    * Check if the paths in your require() statements within your files (```src/index.js, src/commands/*.js, src/utils/*.js, src/config.js, src/cronJobs.js```) are correct. Remember that .. moves up one directory level.
+    * Check if the paths in your ```require()``` statements within your files (```src/index.js, src/commands/*.js, src/utils/*.js, src/config.js, src/cronJobs.js```) are correct. Remember that ```..``` moves up one directory level.
 
 * **Bot doesn't save session / asks for QR Code every time:**
 
     * Ensure the ```.wwebjs_auth/``` folder was created at the root of your project.
 
-    * Confirm that the user running the script has read and write permissions to the ```.wwebjs_auth/ folder. Try running your terminal as Administrator for the first authentication.
+    * Confirm that the user running the script has read and write permissions to the ```.wwebjs_auth/ folder.``` Try running your terminal as Administrator for the first authentication.
 
     * Temporarily disable "Controlled Folder Access" in Windows Defender or similar features in your antivirus.
 
@@ -148,13 +149,14 @@ To stop the bot, press ```Ctrl + C``` in the terminal where it is running.
 
 * **Periodic sending not working:**
 
-    * Verify that the ```GROUP_IDS_TO_SEND in ```src/config.js``` contains valid group IDs.
+    * Verify that the ```GROUP_IDS_TO_SEND``` in ```src/config.js``` contains valid group IDs.
 
     * Check the bot's console for any error messages related to the periodic sending process.
 
+---
 
 ## 📂 Project Structure 
-For the bot to function correctly, your project structure should follow this pattern. This README assumes your main script index.js is inside the ```src/ folder.```
+For the bot to function correctly, your project structure should follow this pattern. This ```README``` assumes your main script ```index.js``` is inside the ```src/ folder.```
 
 
 ```bash
@@ -177,6 +179,8 @@ ZapBot/
 ├── package.json
 └── README.md
 ```
+---
+
 ## 🤝 Contribution
 Feel free to explore, modify, and enhance this project. Suggestions and pull requests are welcome!
 

@@ -19,7 +19,7 @@ const client = new Client({
         dataPath: SESSION_PATH 
     }),
     puppeteer:{
-        headless: false, 
+        headless: false, // true for hide chromium
         args:[
             '--no-sandbox',
             '--disable-setuid-sandbox',
@@ -50,7 +50,7 @@ client.initialize();
 
 client.on('ready', async () => {
     console.log('Client is ready!');
-    startPeriodicJobs(client); 
+    //startPeriodicJobs(client); 
 });
 
 client.on('message_create', async message => { 

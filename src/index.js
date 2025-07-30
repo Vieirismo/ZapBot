@@ -68,12 +68,12 @@ client.on('message_create', async message => {
             case '!teste':
                 await miscCommands.handleTesteCommand(message);
                 break;
-            case '!denilson':
-                await mediaCommands.handleDenilsonCommand(message);
+            case '!imagem':
+                await mediaCommands.handleImageCommand(message);
                 break;
             default:
                 if (message.body.startsWith('!')) { 
-                    message.reply("Comando Desconhecido. Tente: !chat, !teste ou !denilson");
+                    message.reply("Comando Desconhecido. Tente: !chat, !teste ou !imagem");
                 }
                 break;
         }

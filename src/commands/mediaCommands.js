@@ -1,13 +1,13 @@
 const { MessageMedia } = require('whatsapp-web.js');
 const { IMAGE_PATHS } = require('../config'); 
 
-async function handleDenilsonCommand(message) {
+async function handleImageCommand(message) {
     const imagePath = IMAGE_PATHS.DENILSON; 
     try {
         const media = await MessageMedia.fromFilePath(imagePath);
         
         await message.client.sendMessage(message.from, media, { 
-            caption: 'RESENHA!', 
+            caption: 'Aqui está sua imagem', 
             quotedMessageId: message.id._serialized 
         });
         console.log('Imagem enviada como reply com sucesso!');
@@ -19,5 +19,6 @@ async function handleDenilsonCommand(message) {
 }
 
 module.exports = {
-    handleDenilsonCommand,
+    handleImageCommand
+,
 };
